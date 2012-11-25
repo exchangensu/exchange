@@ -52,7 +52,7 @@ class users extends CI_Controller
         $this->form_validation->set_rules('lastName', 'Last Name', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required');
         $this->form_validation->set_rules('country', 'Country', 'required');
-        $this->form_validation->set_rules('passconf', 'Password Confirmation', 'required|callback_compare_passwords');
+        $this->form_validation->set_rules('passconf', 'Password Confirmation', 'required|matches[password]');
 
        if($id==-1){
             $this->form_validation->set_rules('username', 'Username', 'required|is_unique[users.username]');
@@ -64,8 +64,6 @@ class users extends CI_Controller
             $this->load->model('usersmodel');
             $data['user_info'] = $this->usersmodel->getUserInfoById($id);
             $this->load->view('users/sign_up', $data);// I need to pass id value through url
-
-
         }
         else
         {
@@ -83,11 +81,6 @@ class users extends CI_Controller
             $this->load->view('users/signup_success');
         }
     }
-    public function compare_passwords($str){
-        if(strcmp($str, $this->input->post('password')) == 0)
-            return true;
-        $this->form_validation->set_message('compare_passwords', 'The password and %s field did not match');
-        return false;
-    }
+
 
 }
