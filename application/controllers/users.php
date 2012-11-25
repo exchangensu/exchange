@@ -48,7 +48,7 @@ class users extends CI_Controller
         $this->form_validation->set_rules('lastName', 'Last Name', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required|is_unique[user_info.email]');
         $this->form_validation->set_rules('country', 'Country', 'required');
-        $this->form_validation->set_rules('passconf', 'Password Confirmation', 'required');
+        $this->form_validation->set_rules('passconf', 'Password Confirmation', 'required|callback_compare_passwords');
 
 
         if ($this->form_validation->run() == FALSE)
@@ -75,6 +75,12 @@ class users extends CI_Controller
             $this->usersmodel->saveUsers($data);
             $this->load->view('users/signup_success');
         }
+    }
+    public function compare_passwords($str){
+        if(strcmp($str, $this->input->post('password')) == 0)
+            return true;
+        $this->form_validation->set_message('compare_passwords', 'The password and %s field did not match');
+        return false;
     }
     public function username_check($str)
     {
