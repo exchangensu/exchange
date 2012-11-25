@@ -54,7 +54,7 @@ class users extends CI_Controller
         $this->form_validation->set_rules('country', 'Country', 'required');
         $this->form_validation->set_rules('passconf', 'Password Confirmation', 'required|matches[password]');
 
-       if($id==-1){
+       if($this->input->post('userId') <= 0){
             $this->form_validation->set_rules('username', 'Username', 'required|is_unique[users.username]');
             $this->form_validation->set_rules('email', 'Email', 'required|is_unique[user_info.email]');
         }
@@ -62,6 +62,10 @@ class users extends CI_Controller
         if ($this->form_validation->run() == FALSE)
         {
             $this->load->model('usersmodel');
+            //$this->form_validation->
+            if($this->input->post('userId') > 0){
+                $id = $this->input->post('userId');
+            }
             $data['user_info'] = $this->usersmodel->getUserInfoById($id);
             $this->load->view('users/sign_up', $data);// I need to pass id value through url
         }

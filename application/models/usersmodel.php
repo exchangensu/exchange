@@ -4,7 +4,7 @@ class usersmodel extends CI_Model
 {
      public function saveUserInfo($data)
      {
-         if(isset($data['userId']) && $this->getUserInfoById($data['userId'] != null)){
+         if(isset($data['userId']) && $this->getUserInfoById($data['userId']) != null){
              $this->db->where('userId', $data['userId']);
              $this->db->update('user_info', $data);
              $id = $data['userId'];
@@ -15,7 +15,7 @@ class usersmodel extends CI_Model
          return $id;
      }
     public function saveUsers($data){
-        if(isset($data['userId']) && $this->getUserInfoById($data['userId'] != null)){
+        if(isset($data['userId']) && $this->getUserInfoById($data['userId']) != null){
             $this->db->where('userId', $data['userId']);
             $this->db->update('users', $data);
             $id = $data['userId'];
