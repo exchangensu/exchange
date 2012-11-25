@@ -60,6 +60,9 @@ class users extends CI_Controller
              $data = array(
                 'lastName' => $this->input->post('lastName'),
                 'email' => $this->input->post('email'),
+                'firstName' => $this->input->post('firstName'),
+                'address' => $this->input->post('address'),
+                'country' => $this->input->post('country'),
                 'country' => $this->input->post('country')
             );
 
