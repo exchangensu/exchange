@@ -43,7 +43,7 @@ class users extends CI_Controller
 
         $this->load->library('form_validation');
 
-        $this->form_validation->set_rules('username', 'Username', 'required|callback_username_check');
+        $this->form_validation->set_rules('username', 'Username', 'required|callback_username_check|is_unique[users.username]');
         $this->form_validation->set_rules('password', 'Password', 'required');
         $this->form_validation->set_rules('lastName', 'Last Name', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required|is_unique[user_info.email]');
