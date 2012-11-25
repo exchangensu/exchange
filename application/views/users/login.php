@@ -2,6 +2,10 @@
 <body>
 <h1>Login page</h1>
 
+<?php if ($login_failed) : ?>
+    <span id="login-failed-message">Login failed</span>
+<?php endif; ?>
+
 <h5>Username</h5>
 <?php echo form_open('users/index'); ?>
 <?php echo form_error('username'); ?>

@@ -2,25 +2,16 @@
 
 class usersmodel extends CI_Model
 {
-     public function save($data){
-
-         $user_info = array(
-                        'lastName'=>$data['lastname'],
-                        'country'=>$data['country'],
-                        'email'=>$data['email']
-                    );
-         $this->db->insert('user_info', $user_info);
+     public function saveUserInfo($data)
+     {
+         $this->db->insert('user_info', $data);
          $id = $this->db->insert_id();
-         $users = array(
-             'username'=>$data['username'],
-             'password'=>$data['password'],
-             'userId'=>$id
-         );
-
-         $this->db->insert('users', $users);
-
-
+         return $id;
      }
+    public function saveUsers($data){
+        $this->db->insert('users', $data);
+
+    }
 
     public function checkAuthentication($username, $password){
 

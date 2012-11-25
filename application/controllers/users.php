@@ -17,10 +17,9 @@ class users extends CI_Controller
         $this->form_validation->set_rules('username', 'Username', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required');
 
-
         if ($this->form_validation->run() == FALSE)
         {
-            $this->load->view('users/login');
+            $this->load->view('users/login', array('login_failed' => false));
         }
         else
         {
@@ -28,12 +27,15 @@ class users extends CI_Controller
             $username = $this->input->post('username');
             $password = $this->input->post('password');
             $correctAuthentication = $this->usersmodel->checkAuthentication($username, $password);
-            if($correctAuthentication)
+
+            if($correctAuthentication){
                 $this->load->view('users/formsuccess');
+            }
             else
-                $this->load->view('users/login');
+                $this->load->view('users/login', array('login_failed' => true));//need to show error msg that login failed
         }
     }
+
 
     public function signup()
     {
@@ -43,7 +45,7 @@ class users extends CI_Controller
 
         $this->form_validation->set_rules('username', 'Username', 'required|callback_username_check');
         $this->form_validation->set_rules('password', 'Password', 'required');
-        $this->form_validation->set_rules('lastname', 'Last Name', 'required');
+        $this->form_validation->set_rules('lastName', 'Last Name', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required|is_unique[user_info.email]');
         $this->form_validation->set_rules('country', 'Country', 'required');
         $this->form_validation->set_rules('passconf', 'Password Confirmation', 'required');
@@ -55,17 +57,22 @@ class users extends CI_Controller
         }
         else
         {
-            echo $this->input->post('username');
-            $data = array(
-                'username' => $this->input->post('username'),
-                'password' => $this->input->post('password'),
-                'lastname' => $this->input->post('lastname'),
+             $data = array(
+                'lastName' => $this->input->post('lastName'),
                 'email' => $this->input->post('email'),
                 'country' => $this->input->post('country')
             );
 
             $this->load->model('usersmodel');
-            $this->usersmodel->save($data);
+            $usersId = $this->usersmodel->saveUserInfo ($data);
+
+            $data = array(
+                'username' => $this->input->post('username'),
+                'password' => $this->input->post('password'),
+                'userId'=>$usersId
+            );
+
+            $this->usersmodel->saveUsers($data);
             $this->load->view('users/signup_success');
         }
     }

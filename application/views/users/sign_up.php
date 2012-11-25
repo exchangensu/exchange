@@ -7,11 +7,11 @@
 
 <h5>First Name</h5>
 <?php echo form_error('firstname'); ?>
-<input type="text" name="firstname" value="<?php echo set_value('firstname'); ?>" size="50" />
+<input type="text" name="firstName" value="<?php echo set_value('firstName'); ?>" size="50" />
 
 <h5>Last Name</h5>
 <?php echo form_error('lastname'); ?>
-<input type="text" name="lastname" value="<?php echo set_value('lastname'); ?>" size="50" />
+<input type="text" name="lastName" value="<?php echo set_value('lastName'); ?>" size="50" />
 
 <h5>Email</h5>
 <?php echo form_error('email'); ?>
@@ -45,7 +45,7 @@
 <?php echo form_error('passconf'); ?>
 <input type="text" name="passconf" value="<?php echo set_value('passconf'); ?>" size="50" />
 
-<div><input type="submit" value="Login" /></div>
+<div><input type="submit" value="Sign Up" /></div>
 </form>
 
 </body>
